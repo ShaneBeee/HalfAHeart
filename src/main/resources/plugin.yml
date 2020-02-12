@@ -1,0 +1,8 @@
+main: tk.halfaheart.core.HalfAHeart
+name: HalfAHeart
+version: ${project.version}
+api-version: '1.15'
+commands:
+  sign:
+    description: Set the RTP sign
+    permission: halfaheart.sign
