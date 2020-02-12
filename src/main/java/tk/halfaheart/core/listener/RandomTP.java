@@ -1,6 +1,7 @@
 package tk.halfaheart.core.listener;
 
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
@@ -12,6 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.scheduler.BukkitRunnable;
 import tk.halfaheart.core.HalfAHeart;
 import tk.halfaheart.core.util.Util;
 
@@ -41,7 +43,6 @@ public class RandomTP implements Listener {
 
         Sign sign = ((Sign) block.getState());
         if (sign.getLine(0).equalsIgnoreCase(Util.getColString("&7[&bRTP&7]"))) {
-            //randomTP(player);
             if (!clicked.contains(player)) {
                 this.clicked.add(player);
                 Util.sendColMsg(player, "&6Looking for a suitable random location", true);
@@ -53,30 +54,46 @@ public class RandomTP implements Listener {
     }
 
     private void randomTP(Player player) {
-        int x = this.random.nextInt(30000) + 500;
-        int z = this.random.nextInt(30000) + 500;
+        int x = this.random.nextInt(100000) + 1000;
+        int z = this.random.nextInt(100000) + 1000;
         Block block = Util.WORLD.getHighestBlockAt(x, z);
         Chunk chunk = Util.WORLD.getChunkAt(block.getLocation());
         chunk.addPluginChunkTicket(this.plugin);
         Block up = block.getRelative(BlockFace.UP);
         Block two = up.getRelative(BlockFace.UP);
         Material mat = block.getType();
-        switch (mat) {
-            case GRASS_BLOCK:
-            case SAND:
-            case PODZOL:
-            case GRAVEL:
-            case DIRT:
-                if (up.getType() == Material.AIR && two.getType() == Material.AIR) {
-                    player.teleport(up.getLocation());
-                    this.clicked.remove(player);
-                    Util.WORLD.setTime(0);
-                    Util.WORLD.setStorm(false);
-                    return;
+        BukkitRunnable runnable = new BukkitRunnable() {
+            @Override
+            public void run() {
+                switch (mat) {
+                    case GRASS_BLOCK:
+                    case SAND:
+                    case PODZOL:
+                    case GRAVEL:
+                    case DIRT:
+                        if (up.getType() == Material.AIR && two.getType() == Material.AIR) {
+                            Location loc = up.getLocation();
+                            loc.add(0.5, 0.5, 0.5);
+                            player.teleport(loc);
+                            clicked.remove(player);
+                            Util.WORLD.setTime(0);
+                            Util.WORLD.setStorm(false);
+                            for (int i = 1; i < 50; i++) {
+                                player.sendMessage(" ");
+                            }
+                            Util.sendColMsg(player, "&aGOOD LUCK!!!", true);
+                            chunk.removePluginChunkTicket(plugin);
+                            return;
+                        }
                 }
-        }
-        Util.sendColMsg(player, "&6Still looking...", true);
-        randomTP(player);
+                Util.sendColMsg(player, "&6Still looking...", true);
+                chunk.removePluginChunkTicket(plugin);
+                chunk.unload();
+                randomTP(player);
+            }
+        };
+        runnable.runTaskLater(this.plugin, 40);
+
     }
 
 }
