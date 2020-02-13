@@ -79,9 +79,6 @@ public class RandomTP implements Listener {
                             clicked.remove(player);
                             Util.WORLD.setTime(0);
                             Util.WORLD.setStorm(false);
-                            for (int i = 1; i < 50; i++) {
-                                player.sendMessage(" ");
-                            }
                             Util.sendColMsg(player, "&aGOOD LUCK!!!", true);
                             chunk.removePluginChunkTicket(plugin);
                             return;
