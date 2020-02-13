@@ -25,6 +25,7 @@ public class Death implements Listener {
         event.setDeathMessage("");
 
         Player player = event.getEntity();
+        PlayerUtils.setDeathTime(player);
         if (PlayerUtils.isHardcore(player)) {
             event.getDrops().clear();
         }

@@ -5,6 +5,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
 import tk.halfaheart.core.HalfAHeart;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 @SuppressWarnings("ConstantConditions")
 public class PlayerUtils {
 
@@ -12,11 +16,13 @@ public class PlayerUtils {
     private static final NamespacedKey MINUTES_ALIVE;
     private static final NamespacedKey HARDCORE;
     private static final PersistentDataType<Integer, Integer> INT;
+    private static final Map<UUID, Long> DEATH_TIME;
 
     static {
         DEATHS = new NamespacedKey(HalfAHeart.getInstance(), "deaths");
         MINUTES_ALIVE = new NamespacedKey(HalfAHeart.getInstance(), "days_alive");
         HARDCORE = new NamespacedKey(HalfAHeart.getInstance(), "hardcore");
+        DEATH_TIME = new HashMap<>();
         INT = PersistentDataType.INTEGER;
     }
 
@@ -80,6 +86,16 @@ public class PlayerUtils {
         }
         player.getPersistentDataContainer().set(HARDCORE, INT, 1);
         return true;
+    }
+
+    public static void setDeathTime(Player player) {
+        DEATH_TIME.put(player.getUniqueId(), System.currentTimeMillis());
+    }
+
+    public static boolean hasDiedRecently(Player player) {
+        long now = System.currentTimeMillis();
+        UUID uuid = player.getUniqueId();
+        return DEATH_TIME.containsKey(uuid) && now - DEATH_TIME.get(uuid) <= 10000;
     }
 
 }
