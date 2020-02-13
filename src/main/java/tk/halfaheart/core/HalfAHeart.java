@@ -4,7 +4,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import tk.halfaheart.core.command.Sign;
+import tk.halfaheart.core.command.Test;
+import tk.halfaheart.core.data.Data;
 import tk.halfaheart.core.listener.Break;
+import tk.halfaheart.core.listener.Container;
 import tk.halfaheart.core.listener.Death;
 import tk.halfaheart.core.listener.Join;
 import tk.halfaheart.core.listener.RandomTP;
@@ -15,12 +18,14 @@ import tk.halfaheart.core.util.Util;
 public class HalfAHeart extends JavaPlugin {
 
     private static HalfAHeart instance;
+    private Data data;
     private PlayerAlive player_timer;
 
     @Override
     public void onEnable() {
         instance = this;
 
+        this.data = new Data(this);
         registerCommands();
         registerListeners();
         this.player_timer = new PlayerAlive(this);
@@ -40,13 +45,15 @@ public class HalfAHeart extends JavaPlugin {
 
     private void registerCommands() {
         getCommand("sign").setExecutor(new Sign());
+        getCommand("test").setExecutor(new Test(this));
     }
 
     private void registerListeners() {
-        register(new Join());
+        register(new Join(this));
         register(new Death(this));
         register(new RandomTP(this));
-        register(new Break());
+        register(new Break(this));
+        register(new Container(this));
     }
 
     private void register(Listener listener) {
@@ -55,6 +62,10 @@ public class HalfAHeart extends JavaPlugin {
 
     public static HalfAHeart getInstance() {
         return instance;
+    }
+
+    public Data getData() {
+        return data;
     }
 
 }

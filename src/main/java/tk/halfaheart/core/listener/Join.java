@@ -6,11 +6,19 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import tk.halfaheart.core.HalfAHeart;
+import tk.halfaheart.core.data.Data;
 import tk.halfaheart.core.util.PlayerUtils;
 import tk.halfaheart.core.util.Util;
 
 @SuppressWarnings("ConstantConditions")
 public class Join implements Listener {
+
+    private Data data;
+
+    public Join(HalfAHeart plugin) {
+        this.data = plugin.getData();
+    }
 
     @EventHandler
     private void onJoin(PlayerJoinEvent event) {
@@ -30,6 +38,7 @@ public class Join implements Listener {
             Util.broadcast("&6Welcome back &b" + name);
         }
         PlayerUtils.setTablist(player);
+        this.data.loadPlayerData(player.getUniqueId());
     }
 
 }

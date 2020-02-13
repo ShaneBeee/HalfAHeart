@@ -6,3 +6,6 @@ commands:
   sign:
     description: Set the RTP sign
     permission: halfaheart.sign
+  test:
+    description: test plugin for testing
+    permission: halfaheart.test

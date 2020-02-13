@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import tk.halfaheart.core.HalfAHeart;
+import tk.halfaheart.core.task.PlayerDeath;
 import tk.halfaheart.core.util.PlayerUtils;
 import tk.halfaheart.core.util.Util;
 
@@ -36,9 +37,11 @@ public class Death implements Listener {
                 Util.broadcast("&6We lost one -> &c" + msg);
                 Util.sendTitle(player, "&cGAME OVER", "&e" + msg.replace(player.getName(), "You"));
                 Util.deathSound();
+                new PlayerDeath(plugin, player);
             }
         };
         delay.runTaskLater(this.plugin, 1);
+
     }
 
 }
