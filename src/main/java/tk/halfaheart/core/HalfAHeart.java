@@ -3,6 +3,7 @@ package tk.halfaheart.core;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import tk.halfaheart.core.command.HardcoreToggle;
 import tk.halfaheart.core.command.Sign;
 import tk.halfaheart.core.command.Test;
 import tk.halfaheart.core.data.Data;
@@ -47,6 +48,7 @@ public class HalfAHeart extends JavaPlugin {
     private void registerCommands() {
         getCommand("sign").setExecutor(new Sign());
         getCommand("test").setExecutor(new Test(this));
+        getCommand("hardcore").setExecutor(new HardcoreToggle());
     }
 
     private void registerListeners() {

@@ -10,11 +10,13 @@ public class PlayerUtils {
 
     private static final NamespacedKey DEATHS;
     private static final NamespacedKey MINUTES_ALIVE;
+    private static final NamespacedKey HARDCORE;
     private static final PersistentDataType<Integer, Integer> INT;
 
     static {
         DEATHS = new NamespacedKey(HalfAHeart.getInstance(), "deaths");
         MINUTES_ALIVE = new NamespacedKey(HalfAHeart.getInstance(), "days_alive");
+        HARDCORE = new NamespacedKey(HalfAHeart.getInstance(), "hardcore");
         INT = PersistentDataType.INTEGER;
     }
 
@@ -66,6 +68,18 @@ public class PlayerUtils {
 
         String footer = "&6Deaths: &c" + PlayerUtils.getDeaths(player) + " &6Days Alive: &b" + PlayerUtils.getDaysAlive(player);
         player.setPlayerListFooter(Util.getColString(separator + "\n" + footer));
+    }
+
+    public static void setHardcore(Player player, boolean hardcore) {
+        player.getPersistentDataContainer().set(HARDCORE, INT, hardcore ? 1 : 0);
+    }
+
+    public static boolean isHardcore(Player player) {
+        if (player.getPersistentDataContainer().has(HARDCORE, INT)) {
+            return player.getPersistentDataContainer().get(HARDCORE, INT) == 1;
+        }
+        player.getPersistentDataContainer().set(HARDCORE, INT, 1);
+        return true;
     }
 
 }

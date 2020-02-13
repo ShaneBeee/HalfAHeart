@@ -9,3 +9,5 @@ commands:
   test:
     description: test plugin for testing
     permission: halfaheart.test
+  hardcore:
+    description: Toggle hardcore mode
