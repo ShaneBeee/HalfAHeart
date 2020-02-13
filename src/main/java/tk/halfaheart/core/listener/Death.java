@@ -47,7 +47,7 @@ public class Death implements Listener {
         if (PlayerUtils.isHardcore(player) || player.getBedSpawnLocation() == null) {
             player.teleport(Util.RESPAWN);
         } else {
-            player.teleport(player.getBedLocation());
+            player.teleport(player.getBedSpawnLocation());
         }
         Util.broadcast("&6We lost one -> &c" + msg);
         Util.sendTitle(player, "&cGAME OVER", "&e" + msg.replace(player.getName(), "You"));
