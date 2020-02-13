@@ -7,6 +7,7 @@ import tk.halfaheart.core.command.Sign;
 import tk.halfaheart.core.command.Test;
 import tk.halfaheart.core.data.Data;
 import tk.halfaheart.core.listener.Break;
+import tk.halfaheart.core.listener.Chat;
 import tk.halfaheart.core.listener.Container;
 import tk.halfaheart.core.listener.Death;
 import tk.halfaheart.core.listener.Join;
@@ -54,6 +55,7 @@ public class HalfAHeart extends JavaPlugin {
         register(new RandomTP(this));
         register(new Break(this));
         register(new Container(this));
+        register(new Chat());
     }
 
     private void register(Listener listener) {

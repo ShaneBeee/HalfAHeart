@@ -32,9 +32,10 @@ public class Death implements Listener {
                 player.spigot().respawn();
                 player.teleport(Util.RESPAWN);
                 PlayerUtils.addDeath(player);
-                PlayerUtils.setTablist(player);
                 PlayerUtils.resetMinutesAlive(player);
+                PlayerUtils.setTablist(player);
                 Util.broadcast("&6We lost one -> &c" + msg);
+                assert msg != null;
                 Util.sendTitle(player, "&cGAME OVER", "&e" + msg.replace(player.getName(), "You"));
                 Util.deathSound();
                 new PlayerDeath(plugin, player);

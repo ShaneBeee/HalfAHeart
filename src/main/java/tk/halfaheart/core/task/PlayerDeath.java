@@ -34,14 +34,14 @@ public class PlayerDeath extends BukkitRunnable {
         this.uuid = player.getUniqueId();
         this.player = player;
         this.locations = data.getLocations(uuid).iterator();
-        this.runTaskTimer(plugin, 100, 5);
+        this.runTaskTimer(plugin, 20, 5);
     }
 
     @Override
     public void run() {
         int i = 0;
 
-        while (i < 5 && this.locations.hasNext()) {
+        while (i < 10 && this.locations.hasNext()) {
             Location location = this.locations.next();
             World world = location.getWorld();
             assert world != null;

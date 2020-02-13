@@ -20,6 +20,4 @@ public class PlayerAlive extends BukkitRunnable {
         }
     }
 
-
-
 }
