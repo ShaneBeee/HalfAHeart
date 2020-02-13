@@ -71,6 +71,7 @@ public class RandomTP implements Listener {
                     case PODZOL:
                     case GRAVEL:
                     case DIRT:
+                    case STONE:
                         if (up.getType() == Material.AIR && two.getType() == Material.AIR) {
                             Location loc = up.getLocation();
                             loc.add(0.5, 0.5, 0.5);
