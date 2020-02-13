@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 @SuppressWarnings("unused")
 public class Util {
 
-    private static final String PREFIX = "&7[&3Halfa&bHeart&7] ";
+    private final static String PREFIX = "&7[&3Halfa&bHeart&7] ";
 
     public static String getColString(String string) {
         return ChatColor.translateAlternateColorCodes('&', string);
@@ -54,8 +54,8 @@ public class Util {
     }
 
     // TODO temp values
-    public static final Location SPAWN = new Location(Bukkit.getWorlds().get(0), 235.7, 64, 227.5, 90, 10);
-    public static final Location RESPAWN = new Location(Bukkit.getWorlds().get(0), 228.6, 64, 227.5, -89, 12);
-    public static final World WORLD = Bukkit.getWorlds().get(0);
+    public final static Location SPAWN = new Location(Bukkit.getWorlds().get(0), 235.7, 64, 227.5, 90, 10);
+    public final static Location RESPAWN = new Location(Bukkit.getWorlds().get(0), 228.6, 64, 227.5, -89, 12);
+    public final static World WORLD = Bukkit.getWorlds().get(0);
 
 }
