@@ -14,7 +14,7 @@ public class Chat implements Listener {
         Player player = event.getPlayer();
         long days = PlayerUtils.getDaysAlive(player);
         String msg = event.getMessage();
-        event.setFormat(Util.getColString("&7[&b" + days + "&7][&a" + player.getName() + "&7] &c>> &r" + msg));
+        event.setFormat(Util.getColString("&7[&b" + days + "&7][&a" + player.getName() + "&7] &c» &r" + msg));
     }
 
 }
