@@ -18,8 +18,10 @@ import java.util.UUID;
 @SuppressWarnings("ConstantConditions")
 public class BlockUtils {
 
-    private final static NamespacedKey HOLDERS;
-    public final static ImmutableSet<Material> CONTAINERS;
+    private static final NamespacedKey HOLDERS;
+    public static final ImmutableSet<Material> CONTAINERS;
+    public static final ImmutableSet<Material> SPAWN_AT;
+    public static final ImmutableSet<Material> SPAWN_ON;
 
     static {
         CONTAINERS = ImmutableSet.<Material>builder()
@@ -34,6 +36,43 @@ public class BlockUtils {
                 .add(Material.HOPPER)
                 .build();
         HOLDERS = new NamespacedKey(HalfAHeart.getInstance(), "holders");
+        SPAWN_AT = ImmutableSet.<Material>builder()
+                .add(Material.AIR)
+                .add(Material.GRASS)
+                .add(Material.TALL_GRASS)
+                .add(Material.FERN)
+                .add(Material.LARGE_FERN)
+                .build();
+        SPAWN_ON = ImmutableSet.<Material>builder()
+                .add(Material.DIRT)
+                .add(Material.GRASS_BLOCK)
+                .add(Material.PODZOL)
+                .add(Material.MYCELIUM)
+                .add(Material.STONE)
+                .add(Material.GRAVEL)
+                .add(Material.SNOW)
+                .add(Material.SAND)
+                .add(Material.RED_SAND)
+                .add(Material.SANDSTONE)
+                .add(Material.RED_SANDSTONE)
+                .add(Material.TERRACOTTA)
+                .add(Material.BLACK_TERRACOTTA)
+                .add(Material.BLUE_TERRACOTTA)
+                .add(Material.BROWN_TERRACOTTA)
+                .add(Material.CYAN_TERRACOTTA)
+                .add(Material.GRAY_TERRACOTTA)
+                .add(Material.GREEN_TERRACOTTA)
+                .add(Material.LIGHT_BLUE_TERRACOTTA)
+                .add(Material.LIGHT_GRAY_TERRACOTTA)
+                .add(Material.LIME_TERRACOTTA)
+                .add(Material.MAGENTA_TERRACOTTA)
+                .add(Material.ORANGE_TERRACOTTA)
+                .add(Material.PINK_TERRACOTTA)
+                .add(Material.PURPLE_TERRACOTTA)
+                .add(Material.RED_TERRACOTTA)
+                .add(Material.WHITE_TERRACOTTA)
+                .add(Material.YELLOW_TERRACOTTA)
+                .build();
     }
 
     public static boolean isContainer(Material material) {
@@ -41,6 +80,14 @@ public class BlockUtils {
             return true;
         }
         return CONTAINERS.contains(material);
+    }
+
+    public static boolean isSpawnableAt(Material material) {
+        return SPAWN_AT.contains(material) || Tag.FLOWERS.isTagged(material);
+    }
+
+    public static boolean canSpawnOn(Material material) {
+        return SPAWN_ON.contains(material);
     }
 
     public static boolean hasHolders(BlockState state) {
