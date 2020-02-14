@@ -15,6 +15,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.scheduler.BukkitRunnable;
 import tk.halfaheart.core.HalfAHeart;
+import tk.halfaheart.core.util.BlockUtils;
 import tk.halfaheart.core.util.Util;
 
 import java.util.ArrayList;
@@ -65,24 +66,18 @@ public class RandomTP implements Listener {
         BukkitRunnable runnable = new BukkitRunnable() {
             @Override
             public void run() {
-                switch (mat) {
-                    case GRASS_BLOCK:
-                    case SAND:
-                    case PODZOL:
-                    case GRAVEL:
-                    case DIRT:
-                    case STONE:
-                        if (up.getType() == Material.AIR && two.getType() == Material.AIR) {
-                            Location loc = up.getLocation();
-                            loc.add(0.5, 0.5, 0.5);
-                            player.teleport(loc);
-                            clicked.remove(player);
-                            Util.WORLD.setTime(0);
-                            Util.WORLD.setStorm(false);
-                            Util.sendColMsg(player, "&aGOOD LUCK!!!", true);
-                            chunk.removePluginChunkTicket(plugin);
-                            return;
-                        }
+                if (BlockUtils.canSpawnOn(mat)) {
+                    if (BlockUtils.isSpawnableAt(up.getType()) && BlockUtils.isSpawnableAt(two.getType())) {
+                        Location loc = up.getLocation();
+                        loc.add(0.5, 0.5, 0.5);
+                        player.teleport(loc);
+                        clicked.remove(player);
+                        Util.WORLD.setTime(0);
+                        Util.WORLD.setStorm(false);
+                        Util.sendColMsg(player, "&aGOOD LUCK!!!", true);
+                        chunk.removePluginChunkTicket(plugin);
+                        return;
+                    }
                 }
                 Util.sendColMsg(player, "&6Still looking...", true);
                 chunk.removePluginChunkTicket(plugin);
@@ -90,8 +85,7 @@ public class RandomTP implements Listener {
                 randomTP(player);
             }
         };
-        runnable.runTaskLater(this.plugin, 40);
-
+        runnable.runTaskLater(this.plugin, 20);
     }
 
 }
