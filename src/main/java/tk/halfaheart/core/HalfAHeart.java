@@ -14,6 +14,7 @@ import tk.halfaheart.core.listener.Death;
 import tk.halfaheart.core.listener.Join;
 import tk.halfaheart.core.listener.RandomTP;
 import tk.halfaheart.core.task.PlayerAlive;
+import tk.halfaheart.core.task.RandomWeather;
 import tk.halfaheart.core.task.SleepyTime;
 import tk.halfaheart.core.util.Util;
 
@@ -24,6 +25,7 @@ public class HalfAHeart extends JavaPlugin {
     private Data data;
     private PlayerAlive player_timer;
     private SleepyTime sleepy_time;
+    private RandomWeather random_weather;
 
     @Override
     public void onEnable() {
@@ -40,13 +42,6 @@ public class HalfAHeart extends JavaPlugin {
     @Override
     public void onDisable() {
         cancelTasks();
-    }
-
-    private void cancelTasks() {
-        this.player_timer.cancel();
-        this.player_timer = null;
-        this.sleepy_time.cancel();
-        this.sleepy_time = null;
     }
 
     private void registerCommands() {
@@ -67,6 +62,16 @@ public class HalfAHeart extends JavaPlugin {
     private void registerTasks() {
         this.player_timer = new PlayerAlive(this);
         this.sleepy_time = new SleepyTime(this);
+        this.random_weather = new RandomWeather(this);
+    }
+
+    private void cancelTasks() {
+        this.player_timer.cancel();
+        this.player_timer = null;
+        this.sleepy_time.cancel();
+        this.sleepy_time = null;
+        this.random_weather.cancel();
+        this.random_weather = null;
     }
 
     private void register(Listener listener) {
