@@ -32,7 +32,6 @@ public class SleepyBar {
 
     public void updateSleepyBar() {
         double sleeping = getSleepingPercent();
-        this.bossBar.setProgress(sleeping);
         if (sleeping > 0.98) {
             this.bossBar.setColor(BarColor.GREEN);
         } else if (sleeping > 0.25) {
@@ -41,7 +40,8 @@ public class SleepyBar {
             this.bossBar.setColor(BarColor.RED);
         }
         String prefix = this.storm ? "Storm Tracker --" : "Sleepy Time --";
-        this.bossBar.setTitle(prefix + "Sleeping: " + getSleeping() + "/" + getOnline());
+        this.bossBar.setTitle(prefix + " Sleeping: " + getSleeping() + "/" + getOnline());
+        this.bossBar.setProgress(sleeping);
         addPlayers();
     }
 
