@@ -12,17 +12,20 @@ import tk.halfaheart.core.HalfAHeart;
 public class SleepyBar {
 
     private World world;
+    private boolean storm;
     private NamespacedKey key;
     private KeyedBossBar bossBar;
 
     public SleepyBar(World world) {
         this.world = world;
+        this.storm = false;
     }
 
     public void initSleepyBar() {
+        this.storm = this.world.isThundering();
         this.key = new NamespacedKey(HalfAHeart.getInstance(), "sleepybar-" + world.getName());
-        String title = "Sleeping: " + getSleeping() + "/" + getOnline();
-        this.bossBar = Bukkit.createBossBar(key, title, BarColor.PINK, BarStyle.SEGMENTED_20);
+        String title = (this.storm ? "Storm Tracker --" : "Sleepy Time --") + " Sleeping: " + getSleeping() + "/" + getOnline();
+        this.bossBar = Bukkit.createBossBar(key, title, BarColor.RED, BarStyle.SEGMENTED_20);
         this.bossBar.setProgress(getSleepingPercent());
         addPlayers();
     }
@@ -32,12 +35,13 @@ public class SleepyBar {
         this.bossBar.setProgress(sleeping);
         if (sleeping > 0.98) {
             this.bossBar.setColor(BarColor.GREEN);
-        } else if (sleeping > 0.5) {
+        } else if (sleeping > 0.25) {
             this.bossBar.setColor(BarColor.YELLOW);
         } else {
             this.bossBar.setColor(BarColor.RED);
         }
-        this.bossBar.setTitle("Sleeping: " + getSleeping() + "/" + getOnline());
+        String prefix = this.storm ? "Storm Tracker --" : "Sleepy Time --";
+        this.bossBar.setTitle(prefix + "Sleeping: " + getSleeping() + "/" + getOnline());
         addPlayers();
     }
 
@@ -47,7 +51,11 @@ public class SleepyBar {
     }
 
     private double getSleepingPercent() {
-        return ((double) getSleeping() / (double) getOnline());
+        if (getOnline() > 0) {
+            return ((double) getSleeping() / (double) getOnline());
+        } else {
+            return 0.0;
+        }
     }
 
     private int getSleeping() {
