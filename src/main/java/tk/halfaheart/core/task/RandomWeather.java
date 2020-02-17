@@ -16,7 +16,7 @@ public class RandomWeather extends BukkitRunnable {
 
     public RandomWeather(HalfAHeart plugin) {
         int minutes = 5;
-        this.rainChance = 10; // These chances need to be tested
+        this.rainChance = 7; // These chances need to be tested
         this.thunderChance = 25;
         this.world = Bukkit.getWorlds().get(0);
         this.random = new Random();
