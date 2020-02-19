@@ -1,6 +1,7 @@
 package tk.halfaheart.core.listener;
 
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Monster;
@@ -8,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import tk.halfaheart.core.HalfAHeart;
 import tk.halfaheart.core.task.PlayerDeath;
@@ -70,6 +72,19 @@ public class Death implements Listener {
             if (entity instanceof Monster) {
                 entity.remove();
             }
+        }
+    }
+
+    // Cancel ender pearl damage
+    @EventHandler
+    private void onPearl(PlayerTeleportEvent event) {
+        Player player = event.getPlayer();
+        if (event.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL) {
+            event.setCancelled(true);
+            player.setNoDamageTicks(5);
+            if (event.getTo() == null) return;
+            player.teleport(event.getTo());
+            player.playSound(player.getLocation(), Sound.ENTITY_ENDER_PEARL_THROW, 1, 1);
         }
     }
 
