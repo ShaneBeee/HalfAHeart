@@ -18,7 +18,7 @@ import tk.halfaheart.core.util.Util;
 
 public class Death implements Listener {
 
-    private HalfAHeart plugin;
+    private final HalfAHeart plugin;
 
     public Death(HalfAHeart plugin) {
         this.plugin = plugin;

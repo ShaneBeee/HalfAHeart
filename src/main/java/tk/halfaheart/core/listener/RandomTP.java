@@ -24,9 +24,9 @@ import java.util.Random;
 
 public class RandomTP implements Listener {
 
-    private Random random;
-    private HalfAHeart plugin;
-    private List<Player> clicked = new ArrayList<>();
+    private final Random random;
+    private final HalfAHeart plugin;
+    private final List<Player> clicked = new ArrayList<>();
 
     public RandomTP(HalfAHeart plugin) {
         this.random = new Random();

@@ -15,7 +15,7 @@ import tk.halfaheart.core.util.Util;
 @SuppressWarnings("ConstantConditions")
 public class Join implements Listener {
 
-    private Data data;
+    private final Data data;
 
     public Join(HalfAHeart plugin) {
         this.data = plugin.getData();

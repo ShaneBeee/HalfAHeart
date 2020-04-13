@@ -21,12 +21,12 @@ import java.util.UUID;
 
 public class PlayerDeath extends BukkitRunnable {
 
-    private HalfAHeart plugin;
-    private UUID uuid;
-    private Player player;
-    private Data data;
-    private Iterator<Location> locations;
-    private List<Chunk> chunks = new ArrayList<>();
+    private final HalfAHeart plugin;
+    private final UUID uuid;
+    private final Player player;
+    private final Data data;
+    private final Iterator<Location> locations;
+    private final List<Chunk> chunks = new ArrayList<>();
 
     public PlayerDeath(HalfAHeart plugin, Player player) {
         this.plugin = plugin;

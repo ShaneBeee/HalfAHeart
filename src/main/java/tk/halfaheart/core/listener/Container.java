@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public class Container implements Listener {
 
-    private Data data;
+    private final Data data;
 
     public Container(HalfAHeart plugin) {
         this.data = plugin.getData();

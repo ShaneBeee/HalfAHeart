@@ -5,15 +5,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import tk.halfaheart.core.HalfAHeart;
-import tk.halfaheart.core.data.Data;
 import tk.halfaheart.core.util.Util;
 
 public class Break implements Listener {
 
-    private Data data;
-
     public Break(HalfAHeart plugin) {
-        this.data = plugin.getData();
     }
 
     @EventHandler

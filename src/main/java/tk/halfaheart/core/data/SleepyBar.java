@@ -11,7 +11,7 @@ import tk.halfaheart.core.HalfAHeart;
 
 public class SleepyBar {
 
-    private World world;
+    private final World world;
     private boolean storm;
     private NamespacedKey key;
     private KeyedBossBar bossBar;

@@ -17,19 +17,16 @@ import java.util.UUID;
 
 public class Data {
 
-    private HalfAHeart plugin;
-    private File dataFolder;
-    private FileConfiguration config;
+    private final HalfAHeart plugin;
 
-    private Map<UUID, List<Location>> playerLocationMap = new HashMap<>();
-    private Map<UUID, FileConfiguration> playerConfigMap = new HashMap<>();
+    private final Map<UUID, List<Location>> playerLocationMap = new HashMap<>();
+    private final Map<UUID, FileConfiguration> playerConfigMap = new HashMap<>();
 
     public Data(HalfAHeart plugin) {
         this.plugin = plugin;
         loadOnlinePlayerFiles();
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     private void loadOnlinePlayerFiles() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             loadPlayerData(player.getUniqueId());

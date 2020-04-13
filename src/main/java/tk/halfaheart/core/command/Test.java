@@ -7,7 +7,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import tk.halfaheart.core.HalfAHeart;
-import tk.halfaheart.core.data.Data;
 import tk.halfaheart.core.task.PlayerDeath;
 import tk.halfaheart.core.util.BlockUtils;
 
@@ -16,12 +15,10 @@ import java.util.UUID;
 @SuppressWarnings("ConstantConditions")
 public class Test implements CommandExecutor {
 
-    private HalfAHeart plugin;
-    private Data data;
+    private final HalfAHeart plugin;
 
     public Test(HalfAHeart plugin) {
         this.plugin = plugin;
-        this.data = plugin.getData();
     }
 
     @Override
@@ -40,7 +37,6 @@ public class Test implements CommandExecutor {
                         break;
                     case "death":
                         new PlayerDeath(this.plugin, player);
-
                 }
             }
         }
