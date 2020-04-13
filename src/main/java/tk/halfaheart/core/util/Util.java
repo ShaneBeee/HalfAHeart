@@ -56,4 +56,10 @@ public class Util {
         }
     }
 
+    public static void resetWorldTime() {
+        WORLD.setTime(0);
+        WORLD.setStorm(false);
+        WORLD.setThundering(false);
+    }
+
 }
